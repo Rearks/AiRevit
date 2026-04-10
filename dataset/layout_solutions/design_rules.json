@@ -1,0 +1,40 @@
+{
+  "space_rules": {
+    "office": {
+      "min_small_dim_mm": 3000,
+      "min_large_dim_mm": 4500,
+      "must_touch_outer_wall": true
+    },
+    "corridor": {
+      "min_small_dim_mm": 1600,
+      "preferred_area_ratio": 0.16,
+      "min_area_ratio": 0.10,
+      "max_area_ratio": 0.22
+    },
+    "wc": {
+      "min_small_dim_mm": 1500,
+      "min_large_dim_mm": 1800,
+      "preferred_area_m2": 6.0,
+      "min_area_m2": 4.0,
+      "max_area_m2": 8.0
+    }
+  },
+  "layout_rules": {
+    "service_strip_width_candidates_mm": [1800, 2000, 2200, 2400, 2600],
+    "boundary_aspect_ratio_min": 0.5,
+    "boundary_aspect_ratio_max": 2.0,
+    "default_internal_door_width_mm": 900,
+    "default_external_door_width_mm": 1000
+  },
+  "scoring_weights": {
+    "required_connection_bonus": 20,
+    "required_connection_penalty": -35,
+    "adjacency_bonus": 25,
+    "adjacency_penalty": -40,
+    "outer_wall_bonus": 10,
+    "min_dim_penalty": -35,
+    "boundary_ratio_penalty": -20,
+    "wc_near_entrance_bonus": 8,
+    "flow_length_weight": -0.001
+  }
+}

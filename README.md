@@ -32,7 +32,7 @@
 - **Node 2A** — Parse Intent
 - **Node 2B** — Normalize Intent
 - **Node 3A** — Build Topology
-- **Node 3B** — Validate Topology *(планируется)*
+- **Node 3B** — Validate Topology ✅
 - **Node 4A** — Compile BIM Plan
 - **Node 4B** — Validate BIM Plan *(планируется)*
 - **Node 5** — Execute BIM Plan

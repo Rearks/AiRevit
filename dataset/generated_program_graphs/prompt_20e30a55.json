@@ -1,0 +1,169 @@
+{
+  "version": "2.0",
+  "schema_type": "program_graph",
+  "graph_id": "20e30a55",
+  "source": {
+    "source_type": "text_prompt",
+    "original_prompt": "Design a restaurant: dining area, kitchen, two restrooms, total area 200 m², entrance lobby",
+    "pdf_file": null,
+    "pdf_type": null
+  },
+  "metadata": {
+    "building_type": "restaurant",
+    "floor_number": 1,
+    "annotator": "prompt_parser_v1",
+    "annotation_date": "2026-04-09",
+    "quality": "generated",
+    "notes": "Auto-generated from prompt. Area found: True."
+  },
+  "spaces": [
+    {
+      "id": "entrance_1",
+      "kind": "entrance",
+      "name": "Entrance",
+      "name_normalized": "entrance",
+      "area_m2": null,
+      "area_source": "to_be_generated",
+      "is_required": true,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "accessibility_priority": 1.0,
+      "confidence": 1.0
+    },
+    {
+      "id": "wc_1",
+      "kind": "wc",
+      "name": "WC 1",
+      "name_normalized": "wc",
+      "area_m2": null,
+      "area_source": "to_be_generated",
+      "is_required": true,
+      "requires_daylight": false,
+      "is_wet_zone": true,
+      "accessibility_priority": 0.6,
+      "confidence": 1.0
+    },
+    {
+      "id": "wc_2",
+      "kind": "wc",
+      "name": "WC 2",
+      "name_normalized": "wc",
+      "area_m2": null,
+      "area_source": "to_be_generated",
+      "is_required": true,
+      "requires_daylight": false,
+      "is_wet_zone": true,
+      "accessibility_priority": 0.6,
+      "confidence": 1.0
+    },
+    {
+      "id": "kitchen_1",
+      "kind": "kitchen",
+      "name": "Kitchen",
+      "name_normalized": "kitchen",
+      "area_m2": null,
+      "area_source": "to_be_generated",
+      "is_required": true,
+      "requires_daylight": false,
+      "is_wet_zone": true,
+      "accessibility_priority": 0.5,
+      "confidence": 1.0
+    },
+    {
+      "id": "dining_1",
+      "kind": "dining",
+      "name": "Dining",
+      "name_normalized": "dining",
+      "area_m2": null,
+      "area_source": "to_be_generated",
+      "is_required": true,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "accessibility_priority": 0.7,
+      "confidence": 1.0
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "source": "entrance_1",
+      "target": "wc_1",
+      "connection_type": "connected_by_door",
+      "is_required": true,
+      "door_required": true,
+      "weight": 0.6
+    },
+    {
+      "id": "c2",
+      "source": "entrance_1",
+      "target": "wc_2",
+      "connection_type": "connected_by_door",
+      "is_required": true,
+      "door_required": true,
+      "weight": 0.6
+    },
+    {
+      "id": "c3",
+      "source": "entrance_1",
+      "target": "kitchen_1",
+      "connection_type": "connected_by_door",
+      "is_required": true,
+      "door_required": true,
+      "weight": 0.5
+    },
+    {
+      "id": "c4",
+      "source": "entrance_1",
+      "target": "dining_1",
+      "connection_type": "connected_by_door",
+      "is_required": true,
+      "door_required": true,
+      "weight": 0.7
+    }
+  ],
+  "constraints": [
+    {
+      "id": "k1",
+      "type": "total_area",
+      "value": 200.0,
+      "unit": "m2"
+    }
+  ],
+  "flows": [
+    {
+      "id": "f1",
+      "name": "guest_entry_to_dining",
+      "path": [
+        "entrance_1",
+        "dining_1"
+      ],
+      "weight": 1.0,
+      "frequency": "high"
+    },
+    {
+      "id": "f2",
+      "name": "guest_dining_to_wc",
+      "path": [
+        "dining_1",
+        "wc_1"
+      ],
+      "weight": 0.5,
+      "frequency": "medium"
+    },
+    {
+      "id": "f3",
+      "name": "staff_kitchen_to_dining",
+      "path": [
+        "kitchen_1",
+        "dining_1"
+      ],
+      "weight": 0.9,
+      "frequency": "high"
+    }
+  ],
+  "derived": {
+    "topology_pattern": "restaurant",
+    "space_count": 5,
+    "required_space_count": 5
+  }
+}

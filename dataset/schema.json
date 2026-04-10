@@ -1,0 +1,252 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AiRevit Room Graph Annotation",
+  "description": "Формат аннотации архитектурного плана для датасета AiRevit. Каждый JSON-файл описывает один план (одну страницу PDF).",
+  "type": "object",
+  "required": ["version", "source", "metadata", "rooms", "edges"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "const": "1.0",
+      "description": "Версия формата аннотации"
+    },
+    "source": {
+      "type": "object",
+      "required": ["pdf_file", "page"],
+      "properties": {
+        "pdf_file": {
+          "type": "string",
+          "description": "Имя PDF-файла в папке dataset/pdf/",
+          "examples": ["plan_001.pdf"]
+        },
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Номер страницы в PDF (начиная с 1)"
+        },
+        "image_file": {
+          "type": "string",
+          "description": "Имя PNG-файла рендера страницы в dataset/images/",
+          "examples": ["plan_001_page_1.png"]
+        },
+        "pdf_type": {
+          "type": "string",
+          "enum": ["vector", "scan", "mixed", "unknown"],
+          "description": "Тип PDF: векторный, скан, смешанный"
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "building_type": {
+          "type": "string",
+          "enum": ["residential", "office", "public", "industrial", "medical", "educational", "mixed", "other"],
+          "description": "Тип здания"
+        },
+        "floor_number": {
+          "type": "integer",
+          "description": "Номер этажа"
+        },
+        "scale": {
+          "type": "string",
+          "description": "Масштаб чертежа, если указан",
+          "examples": ["1:100", "1:50", "1:200"]
+        },
+        "total_area_m2": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Общая площадь помещений в м²"
+        },
+        "annotator": {
+          "type": "string",
+          "description": "Кто разметил (имя/ник)"
+        },
+        "annotation_date": {
+          "type": "string",
+          "format": "date",
+          "description": "Дата разметки в формате YYYY-MM-DD"
+        },
+        "quality": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Оценка качества/чёткости исходного плана"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Произвольные заметки"
+        }
+      }
+    },
+    "rooms": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Список помещений на плане",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "name"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный ID помещения внутри этого плана",
+            "examples": ["r1", "r2", "kitchen_1"]
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "office", "corridor", "meeting", "wc", "kitchen",
+              "lobby", "room", "storage", "dining", "bedroom",
+              "living", "hallway", "staircase", "elevator",
+              "balcony", "loggia", "technical", "server_room",
+              "reception", "wardrobe", "laundry", "other"
+            ],
+            "description": "Нормализованный тип помещения"
+          },
+          "name": {
+            "type": "string",
+            "description": "Название как написано на плане (оригинальный текст)",
+            "examples": ["Кухня", "Кабинет 101", "Санузел"]
+          },
+          "name_normalized": {
+            "type": "string",
+            "description": "Нормализованное название (опционально)",
+            "examples": ["kitchen", "office_101", "wc"]
+          },
+          "room_number": {
+            "type": "string",
+            "description": "Номер помещения, если указан на плане",
+            "examples": ["101", "2.05"]
+          },
+          "polygon_mm": {
+            "type": "array",
+            "description": "Контур помещения в мм (массив точек [[x,y], ...]). Заполняйте если можете оценить по чертежу.",
+            "items": {
+              "type": "array",
+              "items": {"type": "number"},
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "minItems": 3
+          },
+          "width_mm": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Ширина помещения в мм (по короткой стороне)"
+          },
+          "length_mm": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Длина помещения в мм (по длинной стороне)"
+          },
+          "height_mm": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Высота помещения в мм (если известна)"
+          },
+          "area_m2": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Площадь помещения в м² (если указана на плане или вычислена)"
+          },
+          "has_window": {
+            "type": "boolean",
+            "description": "Есть ли окно"
+          },
+          "window_count": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Количество окон"
+          },
+          "is_wet_zone": {
+            "type": "boolean",
+            "description": "Мокрая зона (кухня, санузел, прачечная)"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Уверенность в правильности разметки (1.0 = точно)"
+          }
+        }
+      }
+    },
+    "doors": {
+      "type": "array",
+      "description": "Список дверей/проёмов",
+      "items": {
+        "type": "object",
+        "required": ["id", "between"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Уникальный ID двери",
+            "examples": ["d1", "d2"]
+          },
+          "between": {
+            "type": "array",
+            "items": {"type": "string"},
+            "minItems": 2,
+            "maxItems": 2,
+            "description": "Между какими двумя помещениями (их id)"
+          },
+          "width_mm": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "description": "Ширина дверного проёма в мм"
+          },
+          "door_type": {
+            "type": "string",
+            "enum": ["single", "double", "sliding", "opening", "other"],
+            "description": "Тип двери"
+          }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "description": "Связи между помещениями (граф)",
+      "items": {
+        "type": "object",
+        "required": ["source", "target", "type"],
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "ID первого помещения"
+          },
+          "target": {
+            "type": "string",
+            "description": "ID второго помещения"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["adjacent", "connected_by_door", "connected_by_opening", "near"],
+            "description": "Тип связи: adjacent = общая стена, connected_by_door = есть дверь, connected_by_opening = проём без двери, near = рядом без общей стены"
+          },
+          "shared_wall_mm": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Длина общей стены в мм (если applicable)"
+          }
+        }
+      }
+    },
+    "statistics": {
+      "type": "object",
+      "description": "Вычисленная статистика (заполняется автоматически или вручную)",
+      "properties": {
+        "room_count": {"type": "integer", "minimum": 0},
+        "door_count": {"type": "integer", "minimum": 0},
+        "total_area_m2": {"type": "number", "minimum": 0},
+        "corridor_ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Доля площади коридоров от общей площади"
+        },
+        "avg_room_area_m2": {"type": "number", "minimum": 0},
+        "max_room_area_m2": {"type": "number", "minimum": 0},
+        "min_room_area_m2": {"type": "number", "minimum": 0}
+      }
+    }
+  }
+}

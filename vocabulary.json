@@ -1,0 +1,248 @@
+{
+  "space_types": {
+    "wc": [
+      "wc",
+      "toilet",
+      "restroom",
+      "bathroom",
+      "washroom",
+      "water closet",
+      "sanitary room",
+      "sanitary unit",
+      "loo",
+      "lavatory",
+      "powder room",
+      "facilities",
+      "toilets"
+    ],
+    "office": [
+      "office",
+      "cabinet",
+      "workspace",
+      "workroom",
+      "study",
+      "workstation",
+      "work room",
+      "work space"
+    ],
+    "corridor": [
+      "corridor",
+      "hallway",
+      "hall",
+      "passage",
+      "passageway",
+      "gallery",
+      "aisle",
+      "circulation"
+    ],
+    "entrance": [
+      "entrance",
+      "entry",
+      "lobby",
+      "foyer",
+      "vestibule",
+      "reception",
+      "entryway",
+      "front door",
+      "main entrance"
+    ],
+    "meeting_room": [
+      "meeting room",
+      "conference room",
+      "boardroom",
+      "meeting",
+      "conference",
+      "negotiation room"
+    ],
+    "kitchen": [
+      "kitchen",
+      "kitchenette",
+      "cooking area",
+      "kitchen area"
+    ],
+    "storage": [
+      "storage",
+      "storage room",
+      "storeroom",
+      "pantry",
+      "closet",
+      "utility room",
+      "utility",
+      "warehouse",
+      "stock room"
+    ],
+    "open_office": [
+      "open office",
+      "open plan",
+      "open space",
+      "open area",
+      "bullpen",
+      "open workspace"
+    ],
+    "server_room": [
+      "server room",
+      "it room",
+      "data room",
+      "network room",
+      "server"
+    ],
+    "break_room": [
+      "break room",
+      "breakout",
+      "breakout room",
+      "coffee point",
+      "coffee area",
+      "lounge",
+      "rest area",
+      "relaxation room"
+    ],
+    "reception": [
+      "reception",
+      "reception area",
+      "front desk",
+      "welcome area",
+      "reception desk"
+    ],
+    "wardrobe": [
+      "wardrobe",
+      "cloakroom",
+      "coat room",
+      "locker room",
+      "changing room",
+      "dressing room"
+    ],
+    "dining": [
+      "dining",
+      "dining room",
+      "canteen",
+      "cafeteria",
+      "eating area",
+      "lunchroom"
+    ],
+    "bedroom": [
+      "bedroom",
+      "sleeping room",
+      "bed room",
+      "sleeping area"
+    ],
+    "living_room": [
+      "living room",
+      "living area",
+      "lounge",
+      "sitting room",
+      "common room",
+      "family room"
+    ]
+  },
+  "building_types": {
+    "office": [
+      "office",
+      "office building",
+      "business center",
+      "workspace",
+      "office space",
+      "office block"
+    ],
+    "restaurant": [
+      "restaurant",
+      "cafe",
+      "cafeteria",
+      "bistro",
+      "diner",
+      "eatery",
+      "food establishment"
+    ],
+    "apartment": [
+      "apartment",
+      "flat",
+      "dwelling",
+      "residential unit",
+      "home",
+      "house",
+      "housing unit"
+    ],
+    "hotel": [
+      "hotel",
+      "motel",
+      "inn",
+      "lodge",
+      "accommodation"
+    ],
+    "clinic": [
+      "clinic",
+      "medical center",
+      "health center",
+      "doctor office",
+      "medical office"
+    ]
+  },
+  "quantities": {
+    "one": 1,
+    "two": 2,
+    "three": 3,
+    "four": 4,
+    "five": 5,
+    "six": 6,
+    "seven": 7,
+    "eight": 8,
+    "nine": 9,
+    "ten": 10,
+    "a": 1,
+    "an": 1,
+    "single": 1,
+    "double": 2,
+    "triple": 3
+  },
+  "ratios": {
+    "twice as large": 2.0,
+    "twice as big": 2.0,
+    "twice the size": 2.0,
+    "two times larger": 2.0,
+    "two times bigger": 2.0,
+    "double the size": 2.0,
+    "three times larger": 3.0,
+    "three times bigger": 3.0,
+    "triple the size": 3.0,
+    "half the size": 0.5,
+    "twice smaller": 0.5
+  },
+  "constraints": {
+    "must_be_adjacent": [
+      "adjacent",
+      "next to each other",
+      "side by side",
+      "neighboring",
+      "connected",
+      "adjoining",
+      "next to one another"
+    ],
+    "requires_daylight": [
+      "with window",
+      "with windows",
+      "with natural light",
+      "with daylight",
+      "facing outside",
+      "exterior"
+    ]
+  },
+  "area_units": {
+    "m2": [
+      "m2",
+      "m²",
+      "sq m",
+      "sqm",
+      "square meter",
+      "square meters",
+      "square metre",
+      "square metres"
+    ],
+    "ft2": [
+      "ft2",
+      "ft²",
+      "sq ft",
+      "sqft",
+      "square foot",
+      "square feet"
+    ]
+  }
+}

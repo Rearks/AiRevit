@@ -1,0 +1,253 @@
+{
+  "version": "2.0",
+  "schema_type": "program_graph",
+  "source": {
+    "pdf_file": "Office5.pdf",
+    "page": 1,
+    "image_file": "Office5.png",
+    "source_type": "pdf_annotation",
+    "pdf_type": "vector"
+  },
+  "metadata": {
+    "project_name": "Office example",
+    "building_type": "office",
+    "floor_number": 1,
+    "scale": "1:100",
+    "annotator": "kraer",
+    "annotation_date": "2026-04-03",
+    "quality": "high",
+    "notes": "Копия 5 (динамический масштаб x0.70)",
+    "total_area_m2": 5.69
+  },
+  "spaces": [
+    {
+      "id": "entrance_1",
+      "kind": "entrance",
+      "name": "Вход",
+      "name_normalized": "entrance",
+      "area_m2": null,
+      "area_source": "unknown",
+      "is_required": true,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "accessibility_priority": 1.0,
+      "confidence": 1.0
+    },
+    {
+      "id": "corridor_1",
+      "kind": "corridor",
+      "name": "Коридор",
+      "name_normalized": "corridor",
+      "area_m2": 1.4,
+      "area_source": "annotated",
+      "is_required": true,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "accessibility_priority": 1.0,
+      "confidence": 1.0,
+      "room_number": "1",
+      "width_mm": 525.0,
+      "length_mm": 2667.0,
+      "height_mm": 3000,
+      "has_window": false,
+      "window_count": 0
+    },
+    {
+      "id": "office_1",
+      "kind": "office",
+      "name": "Кабинет 1",
+      "name_normalized": "office",
+      "area_m2": 3.06,
+      "area_source": "annotated",
+      "is_required": true,
+      "requires_daylight": true,
+      "is_wet_zone": false,
+      "accessibility_priority": 0.8,
+      "confidence": 1.0,
+      "room_number": "2",
+      "width_mm": 1750.0,
+      "length_mm": 1750.0,
+      "height_mm": 3000,
+      "has_window": true,
+      "window_count": 1
+    },
+    {
+      "id": "office_2",
+      "kind": "office",
+      "name": "Кабинет 2",
+      "name_normalized": "office",
+      "area_m2": 0.77,
+      "area_source": "annotated",
+      "is_required": true,
+      "requires_daylight": true,
+      "is_wet_zone": false,
+      "accessibility_priority": 0.8,
+      "confidence": 1.0,
+      "room_number": "3",
+      "width_mm": 875.0,
+      "length_mm": 875.0,
+      "height_mm": 3000,
+      "has_window": true,
+      "window_count": 1
+    },
+    {
+      "id": "wc_1",
+      "kind": "wc",
+      "name": "Туалет",
+      "name_normalized": "wc",
+      "area_m2": 0.46,
+      "area_source": "annotated",
+      "is_required": true,
+      "requires_daylight": false,
+      "is_wet_zone": true,
+      "accessibility_priority": 0.6,
+      "confidence": 1.0,
+      "room_number": "4",
+      "width_mm": 525.0,
+      "length_mm": 875.0,
+      "height_mm": 3000,
+      "has_window": false,
+      "window_count": 1
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "source": "entrance_1",
+      "target": "corridor_1",
+      "connection_type": "direct_access",
+      "is_required": true,
+      "door_required": false,
+      "weight": 1.0
+    },
+    {
+      "id": "c2",
+      "source": "corridor_1",
+      "target": "office_1",
+      "connection_type": "connected_by_door",
+      "is_required": true,
+      "door_required": true,
+      "weight": 1.0,
+      "shared_wall_mm": 1225.0,
+      "door_width_mm": 315.0,
+      "door_type": "single"
+    },
+    {
+      "id": "c3",
+      "source": "corridor_1",
+      "target": "office_2",
+      "connection_type": "connected_by_door",
+      "is_required": true,
+      "door_required": true,
+      "weight": 1.0,
+      "shared_wall_mm": 1225.0,
+      "door_width_mm": 315.0,
+      "door_type": "single"
+    },
+    {
+      "id": "c4",
+      "source": "corridor_1",
+      "target": "wc_1",
+      "connection_type": "connected_by_door",
+      "is_required": true,
+      "door_required": true,
+      "weight": 0.8,
+      "shared_wall_mm": 700.0
+    },
+    {
+      "id": "c5",
+      "source": "office_1",
+      "target": "office_2",
+      "connection_type": "adjacent",
+      "is_required": false,
+      "door_required": false,
+      "weight": 0.7
+    }
+  ],
+  "constraints": [
+    {
+      "id": "k1",
+      "type": "total_area",
+      "value": 5.69,
+      "unit": "m2"
+    },
+    {
+      "id": "k2",
+      "type": "area_ratio",
+      "space_a": "office_1",
+      "space_b": "office_2",
+      "value": 2.0
+    },
+    {
+      "id": "k3",
+      "type": "must_be_adjacent",
+      "space_a": "office_1",
+      "space_b": "office_2"
+    },
+    {
+      "id": "k4",
+      "type": "must_connect_via",
+      "space_a": "office_1",
+      "space_b": "wc_1",
+      "via": "corridor_1"
+    },
+    {
+      "id": "k5",
+      "type": "must_have_access_to",
+      "space_a": "entrance_1",
+      "space_b": "office_1"
+    },
+    {
+      "id": "k6",
+      "type": "must_have_access_to",
+      "space_a": "entrance_1",
+      "space_b": "office_2"
+    }
+  ],
+  "flows": [
+    {
+      "id": "f1",
+      "name": "employee_entry_to_office_1",
+      "path": [
+        "entrance_1",
+        "corridor_1",
+        "office_1"
+      ],
+      "weight": 1.0,
+      "frequency": "high"
+    },
+    {
+      "id": "f2",
+      "name": "employee_entry_to_office_2",
+      "path": [
+        "entrance_1",
+        "corridor_1",
+        "office_2"
+      ],
+      "weight": 0.9,
+      "frequency": "high"
+    },
+    {
+      "id": "f3",
+      "name": "office_to_wc",
+      "path": [
+        "office_1",
+        "corridor_1",
+        "wc_1"
+      ],
+      "weight": 0.6,
+      "frequency": "medium"
+    }
+  ],
+  "derived": {
+    "topology_pattern": "entrance-corridor-offices-wc",
+    "space_count": 5,
+    "required_space_count": 5
+  },
+  "statistics": {
+    "room_count": 3,
+    "door_count": 3,
+    "min_room_area_m2": 0.46,
+    "total_area_m2": 5.69
+  }
+}

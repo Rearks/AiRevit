@@ -1,0 +1,61 @@
+{
+  "version": "1.0",
+  "source": {
+    "pdf_file": "",
+    "page": 1,
+    "image_file": "",
+    "pdf_type": "vector"
+  },
+  "metadata": {
+    "building_type": "",
+    "floor_number": 1,
+    "scale": "",
+    "total_area_m2": 0,
+    "annotator": "",
+    "annotation_date": "",
+    "quality": "medium",
+    "notes": ""
+  },
+  "rooms": [
+    {
+      "id": "r1",
+      "kind": "",
+      "name": "",
+      "name_normalized": "",
+      "room_number": "",
+      "width_mm": 0,
+      "length_mm": 0,
+      "height_mm": 3000,
+      "area_m2": 0,
+      "has_window": false,
+      "window_count": 0,
+      "is_wet_zone": false,
+      "confidence": 1.0
+    }
+  ],
+  "doors": [
+    {
+      "id": "d1",
+      "between": ["r1", "r2"],
+      "width_mm": 900,
+      "door_type": "single"
+    }
+  ],
+  "edges": [
+    {
+      "source": "r1",
+      "target": "r2",
+      "type": "connected_by_door",
+      "shared_wall_mm": 0
+    }
+  ],
+  "statistics": {
+    "room_count": 0,
+    "door_count": 0,
+    "total_area_m2": 0,
+    "corridor_ratio": 0,
+    "avg_room_area_m2": 0,
+    "max_room_area_m2": 0,
+    "min_room_area_m2": 0
+  }
+}

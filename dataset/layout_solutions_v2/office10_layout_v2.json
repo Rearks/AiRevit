@@ -1,0 +1,135 @@
+{
+  "version": "2.0",
+  "schema_type": "layout_solution",
+  "generator": {
+    "name": "layout_generator_v2",
+    "template": "left_service_stack",
+    "service_strip_width_mm": 1800,
+    "area_map_m2": {
+      "corridor_1": 1.677,
+      "wc_1": 4.0,
+      "office_1": 3.202,
+      "office_2": 1.601
+    },
+    "source_program_graph": "Office10.pdf"
+  },
+  "units": "mm",
+  "boundary": {
+    "x_mm": 0.0,
+    "y_mm": 0.0,
+    "width_mm": 3322.9,
+    "height_mm": 3153.9
+  },
+  "rooms": [
+    {
+      "id": "corridor_1",
+      "kind": "corridor",
+      "name": "Коридор",
+      "x_mm": 0.0,
+      "y_mm": 0.0,
+      "width_mm": 1800,
+      "height_mm": 931.7,
+      "target_area_m2": 1.677,
+      "generated_area_m2": 1.677
+    },
+    {
+      "id": "wc_1",
+      "kind": "wc",
+      "name": "Туалет",
+      "x_mm": 0.0,
+      "y_mm": 931.7,
+      "width_mm": 1800,
+      "height_mm": 2222.2,
+      "target_area_m2": 4.0,
+      "generated_area_m2": 4.0
+    },
+    {
+      "id": "office_2",
+      "kind": "office",
+      "name": "Кабинет 2",
+      "x_mm": 1800,
+      "y_mm": 0.0,
+      "width_mm": 1522.9,
+      "height_mm": 1051.3,
+      "target_area_m2": 1.601,
+      "generated_area_m2": 1.601
+    },
+    {
+      "id": "office_1",
+      "kind": "office",
+      "name": "Кабинет 1",
+      "x_mm": 1800,
+      "y_mm": 1051.3,
+      "width_mm": 1522.9,
+      "height_mm": 2102.6,
+      "target_area_m2": 3.202,
+      "generated_area_m2": 3.202
+    }
+  ],
+  "openings": [
+    {
+      "id": "door_entrance",
+      "type": "external_door",
+      "from": "outside",
+      "to": "corridor_1",
+      "x_mm": 400.0,
+      "y_mm": 0.0,
+      "width_mm": 1000,
+      "orientation": "horizontal"
+    },
+    {
+      "id": "door_corridor_1_wc_1",
+      "type": "internal_door",
+      "from": "corridor_1",
+      "to": "wc_1",
+      "x_mm": 450.0,
+      "y_mm": 931.7,
+      "width_mm": 900,
+      "orientation": "horizontal"
+    },
+    {
+      "id": "door_corridor_1_office_2",
+      "type": "internal_door",
+      "from": "corridor_1",
+      "to": "office_2",
+      "x_mm": 1800.0,
+      "y_mm": 15.9,
+      "width_mm": 900,
+      "orientation": "vertical"
+    }
+  ],
+  "metrics": {
+    "target_total_area_m2": 10.48,
+    "generated_total_area_m2": 10.48,
+    "room_count": 4,
+    "opening_count": 3,
+    "score": -35.836
+  },
+  "warnings": [
+    "Room corridor_1 below min dims: 1800 x 931.7 mm",
+    "Room office_2 below min dims: 1522.9 x 1051.3 mm",
+    "Room office_1 below min dims: 1522.9 x 2102.6 mm"
+  ],
+  "candidate_scores": [
+    {
+      "service_strip_width_mm": 1800,
+      "score": -35.836
+    },
+    {
+      "service_strip_width_mm": 2000,
+      "score": -90.828
+    },
+    {
+      "service_strip_width_mm": 2200,
+      "score": -90.949
+    },
+    {
+      "service_strip_width_mm": 2400,
+      "score": -91.163
+    },
+    {
+      "service_strip_width_mm": 2600,
+      "score": -111.445
+    }
+  ]
+}

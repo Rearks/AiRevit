@@ -1,0 +1,136 @@
+{
+  "version": "1.0",
+  "source": {
+    "pdf_file": "Office1.pdf",
+    "page": 1,
+    "image_file": "Office1.png",
+    "pdf_type": "vector"
+  },
+  "metadata": {
+    "building_type": "office",
+    "floor_number": 1,
+    "scale": "1:100",
+    "total_area_m2": 47.5,
+    "annotator": "kraer",
+    "annotation_date": "2026-04-03",
+    "quality": "high",
+    "notes": "Типовой офисный этаж. Два офиса рядом. Двери из офиов выходят в коридор. В конце коридора туалет."
+  },
+  "rooms": [
+    {
+      "id": "corridor_1",
+      "kind": "corridor",
+      "name": "Коридор",
+      "name_normalized": "corridor",
+      "room_number": "1",
+      "width_mm": 1500,
+      "length_mm": 7620,
+      "height_mm": 3000,
+      "area_m2": 11.4,
+      "has_window": false,
+      "window_count": 0,
+      "is_wet_zone": false,
+      "confidence": 1.0
+    },
+    {
+      "id": "office_1",
+      "kind": "office",
+      "name": "Офис 1",
+      "name_normalized": "office",
+      "room_number": "2",
+      "width_mm": 5000,
+      "length_mm": 5000,
+      "height_mm": 3000,
+      "area_m2": 25,
+      "has_window": true,
+      "window_count": 1,
+      "is_wet_zone": false,
+      "confidence": 1.0
+    },
+    {
+      "id": "office_2",
+      "kind": "office",
+      "name": "Офис 3",
+      "name_normalized": "office",
+      "room_number": "3",
+      "width_mm": 2500,
+      "length_mm": 2500,
+      "height_mm": 3000,
+      "area_m2": 14.5,
+      "has_window": true,
+      "window_count": 1,
+      "is_wet_zone": false,
+      "confidence": 1.0
+    },
+    {
+      "id": "wc_1",
+      "kind": "WC",
+      "name": "Туалет 4",
+      "name_normalized": "wc",
+      "room_number": "4",
+      "width_mm": 1500,
+      "length_mm": 2500,
+      "height_mm": 3000,
+      "area_m2": 3.7,
+      "has_window": false,
+      "window_count": 1,
+      "is_wet_zone": true,
+      "confidence": 1.0
+    },
+  ],
+  "doors": [
+    {
+      "id": "d1",
+      "between": [
+        "corridor_1",
+        "office_1"
+      ],
+      "width_mm": 900,
+      "door_type": "single"
+    },
+    {
+      "id": "d2",
+      "between": [
+        "corridor_1",
+        "office_2"
+      ],
+      "width_mm": 900,
+      "door_type": "single"
+    },
+    {
+      "id": "d3",
+      "between": [
+        "corridor_1",
+        "wc"
+      ],
+      "width_mm": 900,
+      "door_type": "single"
+    },
+  ],
+  "edges": [
+    {
+      "source": "corridor_1",
+      "target": "office_1",
+      "type": "connected_by_door",
+      "shared_wall_mm": 3500
+    },
+    {
+      "source": "corridor_1",
+      "target": "office_2",
+      "type": "connected_by_door",
+      "shared_wall_mm": 3500
+    },
+    {
+      {
+        "source": "corridor_1",
+        "target": "wc_1",
+        "type": "connected_by_door",
+        "shared_wall_mm": 2000
+      },
+    ],
+    "statistics": {
+      "room_count": 3,
+      "door_count": 3,
+      "min_room_area_m2": 3.0
+    }
+  }

@@ -1,0 +1,116 @@
+{
+  "version": "1.0",
+  "schema_type": "layout_solution",
+  "generator": {
+    "name": "layout_generator_v1",
+    "strategy": "rectangular_template_baseline",
+    "source_program_graph": "Office2.pdf",
+    "scale_factor_from_annotation": 1.0
+  },
+  "units": "mm",
+  "boundary": {
+    "x_mm": 0.0,
+    "y_mm": 0.0,
+    "width_mm": 7325.6,
+    "height_mm": 477.8
+  },
+  "rooms": [
+    {
+      "id": "corridor_1",
+      "kind": "corridor",
+      "name": "Коридор",
+      "x_mm": 0.0,
+      "y_mm": 0.0,
+      "width_mm": 1800.0,
+      "height_mm": 477.8,
+      "target_area_m2": 0.86,
+      "generated_area_m2": 0.86
+    },
+    {
+      "id": "office_1",
+      "kind": "office",
+      "name": "Кабинет 1",
+      "x_mm": 1800.0,
+      "y_mm": 0.0,
+      "width_mm": 5525.6,
+      "height_mm": 342.0,
+      "target_area_m2": 1.89,
+      "generated_area_m2": 1.89
+    },
+    {
+      "id": "office_2",
+      "kind": "office",
+      "name": "Кабинет 2",
+      "x_mm": 1800.0,
+      "y_mm": 342.0,
+      "width_mm": 5525.6,
+      "height_mm": 85.1,
+      "target_area_m2": 0.47,
+      "generated_area_m2": 0.47
+    },
+    {
+      "id": "wc_1",
+      "kind": "wc",
+      "name": "Туалет",
+      "x_mm": 1800.0,
+      "y_mm": 427.1,
+      "width_mm": 5525.6,
+      "height_mm": 50.7,
+      "target_area_m2": 0.28,
+      "generated_area_m2": 0.28
+    }
+  ],
+  "openings": [
+    {
+      "id": "door_entrance",
+      "type": "external_door",
+      "from": "outside",
+      "to": "corridor_1",
+      "x_mm": 450.0,
+      "y_mm": 0.0,
+      "width_mm": 900,
+      "orientation": "horizontal"
+    },
+    {
+      "id": "door_corridor_1_office_1",
+      "type": "internal_door",
+      "from": "corridor_1",
+      "to": "office_1",
+      "x_mm": 1800.0,
+      "y_mm": -279.0,
+      "width_mm": 900,
+      "orientation": "vertical"
+    },
+    {
+      "id": "door_corridor_1_office_2",
+      "type": "internal_door",
+      "from": "corridor_1",
+      "to": "office_2",
+      "x_mm": 1800.0,
+      "y_mm": -65.4,
+      "width_mm": 900,
+      "orientation": "vertical"
+    },
+    {
+      "id": "door_corridor_1_wc_1",
+      "type": "internal_door",
+      "from": "corridor_1",
+      "to": "wc_1",
+      "x_mm": 1800.0,
+      "y_mm": 2.5,
+      "width_mm": 900,
+      "orientation": "vertical"
+    }
+  ],
+  "metrics": {
+    "target_total_area_m2": 3.5,
+    "generated_total_area_m2": 3.5,
+    "room_count": 4,
+    "opening_count": 4
+  },
+  "warnings": [
+    "Помещение office_1 получилось слишком узким/низким: 5525.6 x 342.0 мм",
+    "Помещение office_2 получилось слишком узким/низким: 5525.6 x 85.1 мм",
+    "Помещение wc_1 получилось слишком узким/низким: 5525.6 x 50.7 мм"
+  ]
+}
