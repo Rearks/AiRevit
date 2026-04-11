@@ -145,6 +145,17 @@ def _elem_name(x):
         pass
     return ""
 
+def _elem_id(elem):
+    """Совместимо: Revit 2024+ (.Value) и старше (.IntegerValue)."""
+    try:
+        return int(elem.Id.Value)
+    except:
+        pass
+    try:
+        return int(elem.Id.IntegerValue)
+    except:
+        return -1
+
 # =========================================================
 # REVIT LOOKUP HELPERS
 # =========================================================
@@ -386,7 +397,7 @@ def prim_create_wall(doc, p):
 
     return {
         "ok": True,
-        "element_id": wall.Id.IntegerValue,
+        "element_id": _elem_id(wall),
         "level_name": _elem_name(level),
         "wall_type_name": _elem_name(wall_type),
         "match": {
@@ -427,7 +438,7 @@ def prim_create_floor(doc, p):
 
     return {
         "ok": True,
-        "element_id": floor.Id.IntegerValue,
+        "element_id": _elem_id(floor),
         "level_name": _elem_name(level),
         "floor_type_name": _elem_name(floor_type),
         "match": {
@@ -469,7 +480,7 @@ def prim_create_room(doc, p):
 
     return {
         "ok": True,
-        "element_id": room.Id.IntegerValue,
+        "element_id": _elem_id(room),
         "level_name": _elem_name(level),
         "match": {
             "level": level_match
@@ -532,8 +543,10 @@ def _execute_phase(doc, phase_name, items, strict_mode):
     started = False
 
     try:
-        if str(tx.Start()) != "Started":
-            raise Exception("Не удалось начать транзакцию фазы '{}'".format(phase_name))
+        tx_status = str(tx.Start())
+        valid_starts = ["Started", "started", "1", "TransactionStatus.Started"]
+        if not any(x in tx_status for x in valid_starts):
+            raise Exception("Не удалось начать транзакцию фазы '{}', статус: {}".format(phase_name, tx_status))
         started = True
 
         if phase_name == "rooms":
@@ -638,8 +651,10 @@ try:
     tg_started = False
 
     try:
-        if str(tg.Start()) != "Started":
-            raise Exception("Не удалось начать TransactionGroup")
+        tg_status = str(tg.Start())
+        valid_starts = ["Started", "started", "1", "TransactionStatus.Started"]
+        if not any(x in tg_status for x in valid_starts):
+            raise Exception("Не удалось начать TransactionGroup, статус: {}".format(tg_status))
         tg_started = True
 
         all_results = []

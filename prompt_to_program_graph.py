@@ -465,11 +465,14 @@ def build_program_graph(prompt: str, vocab: dict) -> dict:
     # Определяем тип здания
     building_type = detect_building_type(text, vocab)
 
+    # Убираем общие фразы, чтобы не двоился счёт (например, "design an office: two offices" -> 3)
+    text_for_qty = text.replace("design an office", "").replace("create an office", "").replace("design a small office", "")
+
     # Определяем площадь
     total_area, unit, area_found = detect_area(text, vocab)
 
     # Определяем состав помещений
-    detected_spaces = detect_quantities(text, vocab)
+    detected_spaces = detect_quantities(text_for_qty, vocab)
 
     # Добавляем обязательные помещения
     detected_spaces = ensure_required_spaces(detected_spaces, building_type)

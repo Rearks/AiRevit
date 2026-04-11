@@ -12,14 +12,29 @@ from RevitServices.Persistence import DocumentManager
 OUT = {"levels": [], "wall_types": [], "floor_types": []}
 
 def _get_name(x):
-    """Безопасное получение имени элемента."""
+    """Безопасное получение имени элемента (CPython3 + IronPython2)."""
+    # CPython3: прямой доступ к .Name
     try:
-        return str(Element.Name.GetValue(x) or "")
+        n = x.Name
+        if n:
+            return str(n)
     except:
-        try:
-            return str(x.Name or "")
-        except:
-            return ""
+        pass
+    # IronPython2 fallback
+    try:
+        n = Element.Name.GetValue(x)
+        if n:
+            return str(n)
+    except:
+        pass
+    # Для типов стен/полов: FamilyName
+    try:
+        n = x.FamilyName
+        if n:
+            return str(n)
+    except:
+        pass
+    return ""
 
 try:
     doc = DocumentManager.Instance.CurrentDBDocument
