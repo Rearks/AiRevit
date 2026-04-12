@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-04-11T21:44:17",
+  "timestamp_unix": 1775933057.5395198,
+  "pipeline_status": "error",
+  "prompt": "Создай кабинет с закрытое помещение со всеми стенами длиной 5000 миллиметров",
+  "llm_response": "WebException: {\"error\":{\"message\":\"User not found.\",\"code\":401}}",
+  "parse_result": {
+    "error": "Критическая ошибка в Node 2B: Traceback (most recent call last):\n  File \"<string>\", line 117, in <module>\nValueError: Node 2A вернул ошибку: Node 1A вернул ошибку: WebException: {\"error\":{\"message\":\"User not found.\",\"code\":401}}\n",
+    "status": "error"
+  },
+  "topology_result": {
+    "source": "node3b_passthrough",
+    "error": "Node 3A вернул не-ok статус: {'error': 'Критическая ошибка в Node 3A: Traceback (most recent call last):\\n  File \"<string>\", line 503, in <module>\\nValueError: Node 2B вернул не-ok статус: {\\'error\\': \\'Критическая ошибка в Node 2B: Traceback (most recent call last):\\\\n  File \"<string>\", line 117, in <module>\\\\nValueError: Node 2A вернул ошибку: Node 1A вернул ошибку: WebException: {\"error\":{\"message\":\"User not found.\",\"code\":401}}\\\\n\\', \\'status\\': \\'error\\'}\\n', 'status': 'error'}",
+    "status": "error"
+  },
+  "plan_result": {
+    "source": "node4b_passthrough",
+    "error": "Node 4A вернул ошибку: Node 3A вернул не-ok статус: {'source': 'node3b_passthrough', 'error': 'Node 3A вернул не-ok статус: {\\'error\\': \\'Критическая ошибка в Node 3A: Traceback (most recent call last):\\\\n  File \"<string>\", line 503, in <module>\\\\nValueError: Node 2B вернул не-ok статус: {\\\\\\'error\\\\\\': \\\\\\'Критическая ошибка в Node 2B: Traceback (most recent call last):\\\\\\\\n  File \"<string>\", line 117, in <module>\\\\\\\\nValueError: Node 2A вернул ошибку: Node 1A вернул ошибку: WebException: {\"error\":{\"message\":\"User not found.\",\"code\":401}}\\\\\\\\n\\\\\\', \\\\\\'status\\\\\\': \\\\\\'error\\\\\\'}\\\\n\\', \\'status\\': \\'error\\'}', 'status': 'error'}",
+    "status": "error"
+  },
+  "execution_result": {
+    "error": "Критическая ошибка в Node 5: Traceback (most recent call last):\n  File \"<string>\", line 624, in <module>\nValueError: План действий пуст\n",
+    "status": "error"
+  },
+  "summary": {
+    "pipeline_status": "error",
+    "element_counts": {
+      "walls": 0,
+      "floors": 0,
+      "rooms": 0,
+      "total": 0,
+      "errors": 0
+    },
+    "prompt_length": 76,
+    "has_llm_response": true,
+    "has_topology": true,
+    "has_plan": true,
+    "has_execution": true
+  }
+}

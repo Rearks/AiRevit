@@ -7,8 +7,10 @@ from datetime import date
 
 sys.stdout.reconfigure(encoding='utf-8')
 
-VOCABULARY_FILE = Path("vocabulary.json")
-OUTPUT_DIR = Path("dataset/generated_program_graphs")
+# ── Пути — относительно этого файла ──
+_HERE = Path(__file__).resolve().parent
+VOCABULARY_FILE = _HERE / "vocabulary.json"
+OUTPUT_DIR = _HERE / "dataset" / "generated_program_graphs"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 FT2_TO_M2 = 0.0929
@@ -586,6 +588,29 @@ def parse_prompt(prompt: str, save: bool = True) -> dict:
         print(f"\n[SAVED] {out_path}")
 
     return graph
+
+
+def run_from_dynamo(prompt: str, output_dir: str = None) -> str:
+    """
+    Для вызова из Dynamo Python node.
+    Возвращает путь к созданному program_graph.json
+    """
+    graph = parse_prompt(prompt, save=False)
+
+    graph_id = graph["graph_id"]
+
+    if output_dir:
+        out_dir = Path(output_dir)
+    else:
+        out_dir = OUTPUT_DIR
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / f"prompt_{graph_id}.json"
+
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(graph, f, ensure_ascii=False, indent=2)
+
+    return str(out_path)
 
 
 def main():

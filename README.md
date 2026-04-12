@@ -49,49 +49,67 @@ Natural Language Prompt
         │
  layout_solution.json
         │
-        ├──► node7_visualize_layout.py  ──► Dynamo 3D polygon preview
-        │
         └──► node8_create_revit_elements.py ──► Revit walls + doors + room labels
 ```
 
 ---
 
-## ⚡ Quick Start
+## ⚡ Quick Start: Running entirely in Dynamo
 
-**Prerequisites:** Python 3.x, Autodesk Revit 2023+, Dynamo 2.x
+This pipeline is designed to be run from start to finish directly inside **Dynamo** (Revit 2023 / 2024+).
 
-### Step 1 — Parse your prompt to a graph
+### The Node Setup (Building the Graph)
 
-```bash
-python prompt_to_program_graph.py
-```
+**Node 1 — The Prompt**
+* Use a `String` node. Enter your prompt here: *"Design an office: corridor, two workrooms, meeting room, WC."*
 
-Edit the `test_prompts` list in `main()` or call `parse_prompt()` directly:
+**Node 2 — The Scripts Folder**
+* Use a `File Path` node pointing to the directory where you cloned `AiRevit`.
 
+**Node 3 — Parse Prompt to Graph**
+* Use a `Python Script` node. Paste this code:
 ```python
-from prompt_to_program_graph import parse_prompt
-graph = parse_prompt("Design an office: corridor, 2 workrooms, meeting room, WC. Total area 120 m².")
+import sys
+import importlib
+
+scripts_dir = str(IN[0])   # File Path -> папка со скриптами
+prompt      = str(IN[1])   # String -> промт
+
+if scripts_dir not in sys.path:
+    sys.path.insert(0, scripts_dir)
+
+# Reload to ensure we have the latest version if edited
+import prompt_to_program_graph as p2g
+importlib.reload(p2g)
+
+result_path = p2g.run_from_dynamo(prompt)
+OUT = result_path
 ```
 
-→ Saves to `dataset/generated_program_graphs/prompt_<id>.json`
+**Node 4 — Generate Layout**
+* Use a `Python Script` node. Connect the `OUT` from Node 3 to `IN[1]`.
+```python
+import sys
+import importlib
 
-### Step 2 — Generate the layout
+scripts_dir        = str(IN[0])   # File Path -> папка со скриптами
+program_graph_path = str(IN[1])   # Путь к graph JSON из Node 3
 
-```bash
-python layout_generator_v2.py
+if scripts_dir not in sys.path:
+    sys.path.insert(0, scripts_dir)
+
+import layout_generator_v2 as lg
+importlib.reload(lg)
+
+layout_path = lg.run_single(program_graph_path)
+OUT = layout_path
 ```
 
-→ Saves optimized coordinates to `dataset/layout_solutions_v2/prompt_<id>_layout_v2.json`
+**Node 5 & 6 — Create Revit Elements**
+* Optional: Add a `File Path` node using the string output from Node 4. (Or connect directly).
+* Use a `Python Script` node and paste the entire contents of `node8_create_revit_elements.py`. Connect `IN[0]` to the output of Node 4.
 
-### Step 3 — Deploy to Revit via Dynamo
-
-1. Open Revit, launch **Dynamo**.
-2. Add a **`File Path`** node → point to your `layout_solution.json`.
-3. Add a **`Python Script`** node → paste contents of `node8_create_revit_elements.py`.
-4. Add a **`Watch`** node to the output.
-5. Connect `File Path → IN[0]`, press **Run**.
-
-✅ Walls, internal doors, and room labels will appear in your Revit view.
+Hit **Run** in Dynamo, and the walls, doors, and rooms will instantly appear in your active Revit view!
 
 ---
 
@@ -99,10 +117,10 @@ python layout_generator_v2.py
 
 ```
 AiRevit/
-├── prompt_to_program_graph.py     # Stage 1: NLP parser → program_graph.json
-├── vocabulary.json                # Controlled vocabulary (space synonyms, quantities, units)
+├── prompt_to_program_graph.py     # Stage 1: NLP parser → JSON graph
+├── vocabulary.json                # Controlled vocabulary (space synonyms etc)
+├── design_rules.json              # Spatial constraints (must be in root folder)
 ├── layout_generator_v2.py         # Stage 2: Algorithmic layout solver
-├── node7_visualize_layout.py      # Dynamo: 3D polygon preview
 ├── node8_create_revit_elements.py # Dynamo: Revit wall/door/room creation
 └── dataset/
     ├── generated_program_graphs/  # Auto-generated program graph JSONs
@@ -117,7 +135,6 @@ AiRevit/
 - [x] Deterministic NLP prompt parser with `vocabulary.json`
 - [x] Graph-based program graph schema (v2.0)
 - [x] Multi-template layout solver (`left_service_stack`, `single_room`)
-- [x] Dynamo visualization node (CPython3 compatible)
 - [x] Revit element creation (walls, doors, room labels) via Dynamo (Revit 2024+ compatible)
 - [x] Growing dataset in `dataset/` for future GNN training
 
@@ -131,28 +148,17 @@ AiRevit/
 - [ ] **Complete pivot to Blender + [Bonsai BIM addon](https://bonsaibim.org/)** (formerly BlenderBIM)
 - [ ] Fully IFC-native output — no proprietary software required
 - [ ] Community-driven vocabulary and template dataset
-- [ ] Web-based layout annotation tool for crowdsourcing the training dataset
 
 ---
 
 ## 🤝 Contributing
 
 This project lives and grows through contributions. Here is how you can help right now:
-
 1. **Try it and report issues** — even bug reports with your prompt and output JSON are invaluable
 2. **Add vocabulary** — edit `vocabulary.json` to add synonyms for your language or domain
 3. **Contribute layouts** — drop your real floor plan as an annotated JSON into `dataset/`
-4. **Add templates** — implement a new spatial template in `layout_generator_v2.py`
 
 ---
 
 ## 📄 License
-
 MIT — free to use, modify, and distribute.
-
----
-
-<p align="center">
-  <b>Built for the AEC open-source community.</b><br>
-  If this helped you, please star ⭐ the repo — it helps others discover it.
-</p>
