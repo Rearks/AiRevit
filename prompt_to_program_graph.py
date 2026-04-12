@@ -5,7 +5,11 @@ import sys
 from pathlib import Path
 from datetime import date
 
-sys.stdout.reconfigure(encoding='utf-8')
+# Dynamo не поддерживает reconfigure — безопасная замена
+try:
+    sys.stdout.reconfigure(encoding='utf-8')
+except AttributeError:
+    pass
 
 # ── Пути — относительно этого файла ──
 _HERE = Path(__file__).resolve().parent
