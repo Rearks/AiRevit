@@ -1,0 +1,4 @@
+# Environment / Dependencies
+Revit==2026.4
+Dynamo==3.6.1
+CPython3

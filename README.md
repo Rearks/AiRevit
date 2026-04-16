@@ -51,28 +51,23 @@ No code changes needed — only data files!
 
 ## ⚡ Quick Start: Running entirely in Dynamo
 
-This pipeline is designed to be run from start to finish directly inside **Dynamo** (Revit 2023 / 2024+).
+### Prerequisites
+- **Revit**: 2026.4+
+- **Dynamo**: 3.6.1+
+- **Python engine**: CPython3
 
-### The Node Setup (Building the Graph)
+This pipeline is designed to be run from start to finish directly inside Dynamo.
 
-**Node 1 — User Prompt**
-* Use a `String` node. Enter your prompt here: *"Design an office with two offices, total area 600 m², one twice as large, corridor, toilet"*
+### Running the Graph
 
-**Node 2 — Directory Path**
-* Use a `Directory Path` node pointing to the directory where you cloned `AiRevit`.
-
-**Node 3 — Python Script (Prompt to Graph)**
-* Use a `Python Script` node. Connect Node 2 to `IN[0]`, Node 1 to `IN[1]`.
-* Output connects to a `Watch` node, then to Node 4.
-
-**Node 4 — Python Script (Graph to Layout)**
-* Use a `Python Script` node. Connect Node 2 to `IN[0]`, Node 3 to `IN[1]`.
-* Output connects to a `Watch` node, then to Node 5.
-
-**Node 5 — Python Script (Create Revit Elements)**
-* Use a `Python Script` node. Connect Node 4 to `IN[0]`.
-
-*(For the exact Python code for these nodes, check the `dynamo_pipeline.md` or the corresponding python scripts in this repository).*
+1. Download or clone this repository to your local machine.
+2. Open Revit and launch **Dynamo**.
+3. Open the `testing.dyn` file provided in the repository root.
+4. The file already has all nodes connected:
+   - Make sure the **Directory Path** node points to the folder where you saved this repository.
+   - Edit the **String** node with your custom prompt.
+5. Click **Run**.
+6. The walls, doors, and rooms will instantly appear in your active Revit view!
 
 ---
 

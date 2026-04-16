@@ -1,0 +1,449 @@
+{
+  "Uuid": "017a12da-210c-4fa5-b19d-0dbfaa54b9f5",
+  "IsCustomNode": false,
+  "Description": "",
+  "Name": "testing",
+  "ElementResolver": {
+    "ResolutionMap": {}
+  },
+  "Inputs": [],
+  "Outputs": [],
+  "Nodes": [
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "SerializedWidth": 0.0,
+      "SerializedHeight": 0.0,
+      "Id": "4227677ffe554cfcbcbdd523857e0d6b",
+      "NodeType": "StringInputNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "41e35af976d64effbb55d0f4b43467cd",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Создание строки.",
+      "InputValue": "Design an office with two offices, total area 600 m², one twice as large, corridor, toilet"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "WatchWidth": 420.0,
+      "WatchHeight": 200.0,
+      "Id": "c2d3c699c64e40b9bfb683e1c355abad",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "4e2d5f695e6b4f1aa2f843b37a10c530",
+          "Name": "",
+          "Description": "Узел для отображения выходных данных",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "640c0621ce4344ffb154806f89609330",
+          "Name": "",
+          "Description": "Выходные данные узла",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Визуализация выходных данных узла"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "import sys\r\nimport importlib\r\n\r\nscripts_dir = str(IN[0])\r\nprompt      = str(IN[1])\r\n\r\nif scripts_dir not in sys.path:\r\n    sys.path.insert(0, scripts_dir)\r\n\r\nimport prompt_to_program_graph as p2g\r\nimportlib.reload(p2g)\r\n\r\nOUT = p2g.run_from_dynamo(prompt)",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "9600a89a61d54c1989c6bda8fb5d6db9",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "6f46742f8d89463f8d00736cfef367c5",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "21b9d8a38e4e420196502781b954e847",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "116c19d3a010469ba105caa58bad2b11",
+          "Name": "OUT",
+          "Description": "Результат сценария Python",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Выполнение встроенного сценария Python."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "import sys\r\nimport importlib\r\n\r\nscripts_dir        = str(IN[0])\r\nprogram_graph_path = str(IN[1])\r\n\r\nif scripts_dir not in sys.path:\r\n    sys.path.insert(0, scripts_dir)\r\n\r\nimport layout_generator_v2 as lg\r\nimportlib.reload(lg)\r\n\r\nOUT = lg.run_single(program_graph_path)",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "58564e409f05463dae4c28de726cb180",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "4b6bca089a4241b0857c963ce8cfc3b0",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "458fa5edb11d476f891914b4e07ebb31",
+          "Name": "IN[1]",
+          "Description": "Input #1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "887f2be6fedd41d7af311a961131223d",
+          "Name": "OUT",
+          "Description": "Результат сценария Python",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Выполнение встроенного сценария Python."
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "Code": "import clr\r\nimport json\r\nimport traceback\r\n\r\nclr.AddReference('RevitServices')\r\nfrom RevitServices.Persistence import DocumentManager\r\nfrom RevitServices.Transactions import TransactionManager\r\n\r\nclr.AddReference('RevitAPI')\r\nfrom Autodesk.Revit.DB import (\r\n    XYZ, Line as RvtLine, Wall, WallType, WallKind,\r\n    FilteredElementCollector, BuiltInCategory, BuiltInParameter,\r\n    Level, FamilySymbol, Structure, UV,\r\n    TextNote, TextNoteOptions, TextNoteType\r\n)\r\n\r\n# ── Константы ──\r\nMM_TO_FEET   = 0.00328084\r\nWALL_H_MM    = 3000\r\nDOOR_H_MM    = 2100\r\nDOOR_W_MM    = 900\r\n\r\ndef _elem_id(elem):\r\n    try: return int(elem.Id.Value)\r\n    except: pass\r\n    try: return int(elem.Id.IntegerValue)\r\n    except: return -1\r\n\r\ndef _get_name(x):\r\n    try:\r\n        n = x.Name\r\n        if n: return str(n)\r\n    except: pass\r\n    return \"\"\r\n\r\ndef mm(v): return float(v) * MM_TO_FEET\r\n\r\n# ─────────────────────────────────────────────\r\ntry:\r\n    doc = DocumentManager.Instance.CurrentDBDocument\r\n\r\n    file_path = str(IN[0])\r\n    with open(file_path, \"r\", encoding=\"utf-8\") as f:\r\n        data = json.load(f)\r\n\r\n    # ── Уровень ──\r\n    levels = list(FilteredElementCollector(doc)\r\n        .OfCategory(BuiltInCategory.OST_Levels)\r\n        .WhereElementIsNotElementType().ToElements())\r\n    level = None\r\n    for lv in levels:\r\n        n = _get_name(lv).lower()\r\n        if \"уровень 1\" in n or \"level 1\" in n:\r\n            level = lv; break\r\n    if level is None and levels:\r\n        level = levels[0]\r\n    if level is None:\r\n        OUT = \"ERROR: нет уровней\"; raise Exception(OUT)\r\n\r\n    # ── Тип стены — только Basic / Базовая ──\r\n    wall_types = list(FilteredElementCollector(doc).OfClass(WallType).ToElements())\r\n    # Оставляем только стены с WallKind.Basic (не Curtain, не Stacked)\r\n    basic_walls = [wt for wt in wall_types\r\n                   if hasattr(wt, 'Kind') and str(wt.Kind) in (\"0\", \"Basic\", \"WallKind.Basic\")]\r\n    if not basic_walls:\r\n        # Фолбэк: исключаем витражи по имени\r\n        basic_walls = [wt for wt in wall_types\r\n                       if not any(k in _get_name(wt).lower()\r\n                                  for k in [\"витраж\", \"curtain\", \"составн\", \"stacked\"])]\r\n    # Выбираем первую \"тонкую\" стену (предпочитаем 200мм)\r\n    wall_type = None\r\n    for wt in basic_walls:\r\n        if \"200\" in _get_name(wt):\r\n            wall_type = wt; break\r\n    if wall_type is None and basic_walls:\r\n        wall_type = basic_walls[0]\r\n    if wall_type is None:\r\n        OUT = \"ERROR: нет подходящего типа стены\"; raise Exception(OUT)\r\n\r\n    # ── Тип двери — первый попавшийся FamilySymbol из категории Doors ──\r\n    door_symbols = list(FilteredElementCollector(doc)\r\n        .OfCategory(BuiltInCategory.OST_Doors)\r\n        .OfClass(FamilySymbol).ToElements())\r\n    door_symbol = door_symbols[0] if door_symbols else None\r\n\r\n    # ── Тип текстовой заметки ──\r\n    text_types = list(FilteredElementCollector(doc).OfClass(TextNoteType).ToElements())\r\n    text_type = text_types[0] if text_types else None\r\n\r\n    # ─────────────────────────────────────────────\r\n    # Функции\r\n    # ─────────────────────────────────────────────\r\n    def make_line(x1, y1, x2, y2):\r\n        p1 = XYZ(mm(x1), mm(y1), 0)\r\n        p2 = XYZ(mm(x2), mm(y2), 0)\r\n        if p1.DistanceTo(p2) < 0.001:\r\n            return None\r\n        return RvtLine.CreateBound(p1, p2)\r\n\r\n    def room_walls(room):\r\n        x, y = float(room[\"x_mm\"]), float(room[\"y_mm\"])\r\n        w, h = float(room[\"width_mm\"]), float(room[\"height_mm\"])\r\n        return [\r\n            make_line(x,   y,   x+w, y  ),\r\n            make_line(x+w, y,   x+w, y+h),\r\n            make_line(x+w, y+h, x,   y+h),\r\n            make_line(x,   y+h, x,   y  ),\r\n        ]\r\n\r\n    # ─────────────────────────────────────────────\r\n    # Старт транзакции\r\n    # ─────────────────────────────────────────────\r\n    TransactionManager.Instance.EnsureInTransaction(doc)\r\n\r\n    # === 1. СТЕНЫ ===\r\n    wall_segs = {}\r\n    for room in data.get(\"rooms\", []):\r\n        for ln in room_walls(room):\r\n            if ln is None: continue\r\n            p1, p2 = ln.GetEndPoint(0), ln.GetEndPoint(1)\r\n            ka = (round(p1.X,3), round(p1.Y,3))\r\n            kb = (round(p2.X,3), round(p2.Y,3))\r\n            key = tuple(sorted([ka, kb]))\r\n            if key not in wall_segs:\r\n                wall_segs[key] = ln\r\n\r\n    created_walls, failed_walls = [], []\r\n    wall_by_key = {}   # key -> Revit Wall object (нужно для дверей)\r\n    for key, ln in wall_segs.items():\r\n        try:\r\n            w = Wall.Create(doc, ln, wall_type.Id, level.Id,\r\n                            mm(WALL_H_MM), 0, False, False)\r\n            created_walls.append(_elem_id(w))\r\n            wall_by_key[key] = w\r\n        except Exception as e:\r\n            failed_walls.append(str(e))\r\n\r\n    # === 2. ДВЕРИ (из openings в JSON) ===\r\n    created_doors, failed_doors = [], []\r\n    if door_symbol is not None:\r\n        # Активируем символ если не активирован\r\n        try:\r\n            if not door_symbol.IsActive:\r\n                door_symbol.Activate()\r\n                doc.Regenerate()\r\n        except: pass\r\n\r\n        for op in data.get(\"openings\", []):\r\n            if op.get(\"type\") != \"internal_door\":\r\n                continue\r\n            try:\r\n                dx = float(op[\"x_mm\"])\r\n                dy = float(op[\"y_mm\"])\r\n                dw = float(op.get(\"width_mm\", DOOR_W_MM))\r\n                orient = op.get(\"orientation\", \"vertical\")\r\n\r\n                # Центр двери\r\n                if orient == \"vertical\":\r\n                    pt = XYZ(mm(dx), mm(dy + dw/2), 0)\r\n                else:\r\n                    pt = XYZ(mm(dx + dw/2), mm(dy), 0)\r\n\r\n                # Ищем ближайшую стену из созданных\r\n                host_wall = None\r\n                min_dist = 9999.0\r\n                for wobj in wall_by_key.values():\r\n                    try:\r\n                        lc = wobj.Location.Curve\r\n                        dist = lc.Distance(pt)\r\n                        if dist < min_dist:\r\n                            min_dist = dist\r\n                            host_wall = wobj\r\n                    except: pass\r\n\r\n                if host_wall is None or min_dist > mm(400):\r\n                    failed_doors.append(\"op \" + op.get(\"id\",\"?\") + \": wall not found nearby\")\r\n                    continue\r\n\r\n                door = doc.Create.NewFamilyInstance(\r\n                    pt, door_symbol, host_wall, level,\r\n                    Structure.StructuralType.NonStructural\r\n                )\r\n                created_doors.append(_elem_id(door))\r\n            except Exception as e:\r\n                failed_doors.append(op.get(\"id\",\"?\") + \": \" + str(e))\r\n\r\n    # === 3. ПОДПИСИ ПОМЕЩЕНИЙ ===\r\n    created_labels, failed_labels = [], []\r\n    if text_type is not None:\r\n        for room in data.get(\"rooms\", []):\r\n            try:\r\n                cx = float(room[\"x_mm\"]) + float(room[\"width_mm\"]) / 2.0\r\n                cy = float(room[\"y_mm\"]) + float(room[\"height_mm\"]) / 2.0\r\n                pt = XYZ(mm(cx), mm(cy), 0)\r\n                label = room.get(\"name\", room.get(\"id\", \"?\"))\r\n                area  = room.get(\"generated_area_m2\", \"\")\r\n                text  = label + \"\\n\" + str(area) + \" m²\" if area else label\r\n\r\n                opts = TextNoteOptions(text_type.Id)\r\n                tn = TextNote.Create(doc, doc.ActiveView.Id, pt, text, opts)\r\n                created_labels.append(_elem_id(tn))\r\n            except Exception as e:\r\n                failed_labels.append(room.get(\"id\",\"?\") + \": \" + str(e))\r\n\r\n    TransactionManager.Instance.TransactionTaskDone()\r\n\r\n    # ── Итоговый отчёт ──\r\n    OUT = (\r\n        \"OK\"\r\n        + \" | walls: \"  + str(len(created_walls))\r\n        + \" | doors: \"  + str(len(created_doors))\r\n        + \" | labels: \" + str(len(created_labels))\r\n        + \" | wall_type: \" + _get_name(wall_type)\r\n        + \" | level: \"  + _get_name(level)\r\n        + (\" | wall_errors: \"  + \"; \".join(failed_walls)  if failed_walls  else \"\")\r\n        + (\" | door_errors: \"  + \"; \".join(failed_doors)  if failed_doors  else \"\")\r\n        + (\" | label_errors: \" + \"; \".join(failed_labels) if failed_labels else \"\")\r\n    )\r\n\r\nexcept Exception as e:\r\n    OUT = \"EXCEPTION: \" + str(e) + \"\\n\" + traceback.format_exc()",
+      "Engine": "CPython3",
+      "VariableInputPorts": true,
+      "Id": "676248ea286047aa81f367df9f7e2638",
+      "NodeType": "PythonScriptNode",
+      "Inputs": [
+        {
+          "Id": "6907690f1d244209b7c077536c3340d1",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "dc74666bfc154587bb3b0ed6d139b938",
+          "Name": "OUT",
+          "Description": "Результат сценария Python",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Выполнение встроенного сценария Python."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.Directory, CoreNodeModels",
+      "Id": "286f3261a8a2447aa22af585ab669ac6",
+      "NodeType": "ExtensionNode",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "81aa5f32b9674cdd9fdbdd348c52f3eb",
+          "Name": "",
+          "Description": "Путь к каталогу",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Возможность выбрать каталог в системе и возврат пути к нему",
+      "HintPath": "C:\\Users\\kraer\\AiRevit",
+      "InputValue": "C:\\Users\\kraer\\AiRevit"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "WatchWidth": 420.0,
+      "WatchHeight": 40.0,
+      "Id": "b7cb97f1dc384e71acef2b9506784d76",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "a569aef432a1467d94e0b9e5e3dbd470",
+          "Name": "",
+          "Description": "Узел для отображения выходных данных",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "63518651bcb14bf2a0da459706086b93",
+          "Name": "",
+          "Description": "Выходные данные узла",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Визуализация выходных данных узла"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "WatchWidth": 420.0,
+      "WatchHeight": 40.0,
+      "Id": "61a2c84499534a7ea77e964a7fb0c468",
+      "NodeType": "ExtensionNode",
+      "Inputs": [
+        {
+          "Id": "0ee751307d03478e8dd40b8f29600c6a",
+          "Name": "",
+          "Description": "Узел для отображения выходных данных",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "953a4a35161e4d14916b6ec0034b98c4",
+          "Name": "",
+          "Description": "Выходные данные узла",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Визуализация выходных данных узла"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "41e35af976d64effbb55d0f4b43467cd",
+      "End": "21b9d8a38e4e420196502781b954e847",
+      "Id": "3f8bad01577f441d8382b32e1016edb5",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "116c19d3a010469ba105caa58bad2b11",
+      "End": "458fa5edb11d476f891914b4e07ebb31",
+      "Id": "4c9ecc67b55649de8355c0247e2b2b10",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "116c19d3a010469ba105caa58bad2b11",
+      "End": "a569aef432a1467d94e0b9e5e3dbd470",
+      "Id": "c862f9f9b7124d13a36884d82747b54d",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "887f2be6fedd41d7af311a961131223d",
+      "End": "0ee751307d03478e8dd40b8f29600c6a",
+      "Id": "fd4ceedbed9d4ccbb6a2272dd03e69a6",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "887f2be6fedd41d7af311a961131223d",
+      "End": "6907690f1d244209b7c077536c3340d1",
+      "Id": "c4e2d23f5db04db4b5c711c5d99eb367",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "dc74666bfc154587bb3b0ed6d139b938",
+      "End": "4e2d5f695e6b4f1aa2f843b37a10c530",
+      "Id": "f47651232bb94b29aaaa0d13120dcbd8",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "81aa5f32b9674cdd9fdbdd348c52f3eb",
+      "End": "6f46742f8d89463f8d00736cfef367c5",
+      "Id": "d4bcdfca415047a2b75099b8468112ea",
+      "IsHidden": "False"
+    },
+    {
+      "Start": "81aa5f32b9674cdd9fdbdd348c52f3eb",
+      "End": "4b6bca089a4241b0857c963ce8cfc3b0",
+      "Id": "2831a334de1e43399769e5142e571ac6",
+      "IsHidden": "False"
+    }
+  ],
+  "Dependencies": [],
+  "NodeLibraryDependencies": [],
+  "EnableLegacyPolyCurveBehavior": true,
+  "Thumbnail": "",
+  "GraphDocumentationURL": null,
+  "ExtensionWorkspaceData": [
+    {
+      "ExtensionGuid": "28992e1d-abb9-417f-8b1b-05e053bee670",
+      "Name": "Свойства",
+      "Version": "3.6",
+      "Data": {}
+    },
+    {
+      "ExtensionGuid": "DFBD9CC0-DB40-457A-939E-8C8555555A9D",
+      "Name": "Generative Design",
+      "Version": "9.1",
+      "Data": {}
+    }
+  ],
+  "Author": "",
+  "Linting": {
+    "activeLinter": "Нет",
+    "activeLinterId": "7b75fb44-43fd-4631-a878-29f4d5d8399a",
+    "warningCount": 0,
+    "errorCount": 0
+  },
+  "Bindings": [],
+  "View": {
+    "Dynamo": {
+      "ScaleFactor": 1.0,
+      "HasRunWithoutCrash": true,
+      "IsVisibleInDynamoLibrary": true,
+      "Version": "3.6.1.9895",
+      "RunType": "Manual",
+      "RunPeriod": "1000"
+    },
+    "Camera": {
+      "Name": "_Фоновый просмотр",
+      "EyeX": -17.0,
+      "EyeY": 24.0,
+      "EyeZ": 50.0,
+      "LookX": 12.0,
+      "LookY": -13.0,
+      "LookZ": -58.0,
+      "UpX": 0.0,
+      "UpY": 1.0,
+      "UpZ": 0.0
+    },
+    "ConnectorPins": [],
+    "NodeViews": [
+      {
+        "Id": "4227677ffe554cfcbcbdd523857e0d6b",
+        "Name": "Node1 string",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 981.3397448130149,
+        "Y": 463.43778509613935
+      },
+      {
+        "Id": "c2d3c699c64e40b9bfb683e1c355abad",
+        "Name": "Watch",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 2126.33058196836,
+        "Y": 508.43358229878606
+      },
+      {
+        "Id": "9600a89a61d54c1989c6bda8fb5d6db9",
+        "Name": "Node3",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1317.3203937469707,
+        "Y": 522.9439647810078
+      },
+      {
+        "Id": "58564e409f05463dae4c28de726cb180",
+        "Name": "Node4",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1588.2881691127284,
+        "Y": 669.9076165902609
+      },
+      {
+        "Id": "676248ea286047aa81f367df9f7e2638",
+        "Name": "Node5",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1850.6608577924553,
+        "Y": 512.9217724886556
+      },
+      {
+        "Id": "286f3261a8a2447aa22af585ab669ac6",
+        "Name": "Node2 Filepath",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 986.7895386286648,
+        "Y": 671.6556809413565
+      },
+      {
+        "Id": "b7cb97f1dc384e71acef2b9506784d76",
+        "Name": "Watch",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 1591.6085037844261,
+        "Y": 242.7632251976558
+      },
+      {
+        "Id": "61a2c84499534a7ea77e964a7fb0c468",
+        "Name": "Watch",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "ShowGeometry": true,
+        "X": 2134.592674945861,
+        "Y": 796.4362289040705
+      }
+    ],
+    "Annotations": [],
+    "X": -633.716479552703,
+    "Y": -174.645952966644,
+    "Zoom": 0.722090522686649
+  }
+}
