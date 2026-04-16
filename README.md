@@ -1,7 +1,7 @@
 <p align="center">
-  <img src="https://img.shields.io/badge/Revit-2023%2B-0066CC?logo=autodesk" alt="Revit Version">
-  <img src="https://img.shields.io/badge/Dynamo-2.x-orange" alt="Dynamo">
-  <img src="https://img.shields.io/badge/Python-3.x-3776AB?logo=python" alt="Python">
+  <img src="https://img.shields.io/badge/Revit-2026.4%2B-0066CC?logo=autodesk" alt="Revit Version">
+  <img src="https://img.shields.io/badge/Dynamo-3.6.1%2B-orange" alt="Dynamo">
+  <img src="https://img.shields.io/badge/Python-CPython3-3776AB?logo=python" alt="Python">
   <img src="https://img.shields.io/badge/LLM%20Required-None-brightgreen" alt="No LLM">
   <img src="https://img.shields.io/badge/Hallucinations-Zero-brightgreen" alt="Zero Hallucinations">
   <img src="https://img.shields.io/badge/Status-Beta-blueviolet" alt="Status">
