@@ -1,12 +1,15 @@
 import json
 import math
 import copy
+import sys
 from pathlib import Path
 
-BASE_DIR = Path(r"c:\Users\kraer\AiRevit")
-INPUT_DIR = BASE_DIR / "dataset" / "generated_program_graphs"
-OUTPUT_DIR = BASE_DIR / "dataset" / "layout_solutions_v2"
-RULES_FILE = BASE_DIR / "dataset" / "layout_solutions" / "design_rules.json"
+# ── Пути — всё относительно этого файла ──
+_HERE = Path(__file__).resolve().parent
+
+INPUT_DIR  = _HERE / "dataset" / "generated_program_graphs"
+OUTPUT_DIR = _HERE / "dataset" / "layout_solutions_v2"
+RULES_FILE = _HERE / "design_rules.json"
 
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -703,6 +706,32 @@ def generate_best_layout(data, rules):
 
     return best
 
+
+def run_single(input_path: str, output_dir: str = None) -> str:
+    """
+    Для вызова из Dynamo Python node.
+    input_path  - путь к program_graph.json
+    output_dir  - куда сохранить результат (опционально)
+    Возвращает путь к созданному layout файлу.
+    """
+    rules = load_rules()
+    input_path = Path(input_path)
+
+    if output_dir:
+        out_dir = Path(output_dir)
+    else:
+        out_dir = input_path.parent.parent / "layout_solutions_v2"
+
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    data = load_json(input_path)
+    layout = generate_best_layout(data, rules)
+
+    out_name = input_path.stem + "_layout_v2.json"
+    out_path = out_dir / out_name
+    save_json(out_path, layout)
+
+    return str(out_path)
 
 def main():
     rules = load_rules()

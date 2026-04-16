@@ -1,0 +1,244 @@
+{
+  "version": "1.0",
+  "description": "Space type rules for layout generation. Add new types here without changing core code.",
+
+  "defaults": {
+    "group": "service",
+    "preferred_near": ["corridor"],
+    "min_area_m2": 4.0,
+    "max_area_m2": null,
+    "preferred_area_ratio": null,
+    "min_small_dim_mm": 2000,
+    "min_large_dim_mm": 2000,
+    "requires_daylight": false,
+    "is_wet_zone": false,
+    "position_priority": 99
+  },
+
+  "space_types": {
+
+    "entrance": {
+      "group": "circulation",
+      "preferred_near": ["corridor", "reception"],
+      "min_area_m2": 2.0,
+      "max_area_m2": 20.0,
+      "preferred_area_ratio": null,
+      "min_small_dim_mm": 1500,
+      "min_large_dim_mm": 1800,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "position_priority": null
+    },
+
+    "corridor": {
+      "group": "circulation",
+      "preferred_near": null,
+      "min_area_m2": null,
+      "max_area_m2": null,
+      "preferred_area_ratio": 0.16,
+      "min_area_ratio": 0.10,
+      "max_area_ratio": 0.22,
+      "min_small_dim_mm": 1600,
+      "min_large_dim_mm": null,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "position_priority": null
+    },
+
+    "hallway": {
+      "group": "circulation",
+      "preferred_near": ["entrance"],
+      "min_area_m2": 2.0,
+      "max_area_m2": 15.0,
+      "preferred_area_ratio": 0.08,
+      "min_small_dim_mm": 1400,
+      "min_large_dim_mm": 2000,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "position_priority": null
+    },
+
+    "office": {
+      "group": "primary",
+      "preferred_near": ["corridor"],
+      "min_area_m2": 9.0,
+      "max_area_m2": null,
+      "preferred_area_ratio": null,
+      "min_small_dim_mm": 3000,
+      "min_large_dim_mm": 4500,
+      "requires_daylight": true,
+      "is_wet_zone": false,
+      "position_priority": null
+    },
+
+    "open_office": {
+      "group": "primary",
+      "preferred_near": ["corridor", "reception"],
+      "min_area_m2": 20.0,
+      "max_area_m2": null,
+      "preferred_area_ratio": null,
+      "min_small_dim_mm": 5000,
+      "min_large_dim_mm": 6000,
+      "requires_daylight": true,
+      "is_wet_zone": false,
+      "position_priority": null
+    },
+
+    "meeting_room": {
+      "group": "primary",
+      "preferred_near": ["corridor", "office"],
+      "min_area_m2": 12.0,
+      "max_area_m2": 40.0,
+      "preferred_area_ratio": null,
+      "min_small_dim_mm": 3000,
+      "min_large_dim_mm": 4000,
+      "requires_daylight": true,
+      "is_wet_zone": false,
+      "position_priority": null
+    },
+
+    "bedroom": {
+      "group": "primary",
+      "preferred_near": ["corridor", "hallway"],
+      "min_area_m2": 9.0,
+      "max_area_m2": null,
+      "preferred_area_ratio": null,
+      "min_small_dim_mm": 2700,
+      "min_large_dim_mm": 3200,
+      "requires_daylight": true,
+      "is_wet_zone": false,
+      "position_priority": null
+    },
+
+    "living_room": {
+      "group": "primary",
+      "preferred_near": ["hallway", "kitchen", "dining"],
+      "min_area_m2": 15.0,
+      "max_area_m2": null,
+      "preferred_area_ratio": null,
+      "min_small_dim_mm": 3500,
+      "min_large_dim_mm": 4500,
+      "requires_daylight": true,
+      "is_wet_zone": false,
+      "position_priority": null
+    },
+
+    "reception": {
+      "group": "public",
+      "preferred_near": ["entrance", "corridor"],
+      "min_area_m2": 8.0,
+      "max_area_m2": 30.0,
+      "preferred_area_ratio": null,
+      "min_small_dim_mm": 2500,
+      "min_large_dim_mm": 3500,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "position_priority": null
+    },
+
+    "dining": {
+      "group": "public",
+      "preferred_near": ["entrance", "kitchen"],
+      "min_area_m2": 20.0,
+      "max_area_m2": null,
+      "preferred_area_ratio": null,
+      "min_small_dim_mm": 4000,
+      "min_large_dim_mm": 5000,
+      "requires_daylight": true,
+      "is_wet_zone": false,
+      "position_priority": null
+    },
+
+    "break_room": {
+      "group": "public",
+      "preferred_near": ["corridor", "office"],
+      "min_area_m2": 8.0,
+      "max_area_m2": 25.0,
+      "preferred_area_ratio": 0.08,
+      "min_small_dim_mm": 2500,
+      "min_large_dim_mm": 3000,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "position_priority": null
+    },
+
+    "wc": {
+      "group": "service",
+      "preferred_near": ["corridor"],
+      "min_area_m2": 4.0,
+      "max_area_m2": 8.0,
+      "preferred_area_ratio": 0.06,
+      "min_small_dim_mm": 1500,
+      "min_large_dim_mm": 1800,
+      "requires_daylight": false,
+      "is_wet_zone": true,
+      "position_priority": 2
+    },
+
+    "kitchen": {
+      "group": "service",
+      "preferred_near": ["dining", "corridor"],
+      "min_area_m2": 6.0,
+      "max_area_m2": null,
+      "preferred_area_ratio": null,
+      "min_small_dim_mm": 2000,
+      "min_large_dim_mm": 2800,
+      "requires_daylight": false,
+      "is_wet_zone": true,
+      "position_priority": 3
+    },
+
+    "wardrobe": {
+      "group": "service",
+      "preferred_near": ["entrance", "corridor"],
+      "min_area_m2": 4.0,
+      "max_area_m2": 20.0,
+      "preferred_area_ratio": 0.08,
+      "min_small_dim_mm": 1800,
+      "min_large_dim_mm": 2400,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "position_priority": 1
+    },
+
+    "storage": {
+      "group": "service",
+      "preferred_near": ["corridor", "kitchen"],
+      "min_area_m2": 3.0,
+      "max_area_m2": 15.0,
+      "preferred_area_ratio": 0.05,
+      "min_small_dim_mm": 1500,
+      "min_large_dim_mm": 2000,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "position_priority": 4
+    },
+
+    "server_room": {
+      "group": "service",
+      "preferred_near": ["corridor"],
+      "min_area_m2": 4.0,
+      "max_area_m2": 20.0,
+      "preferred_area_ratio": 0.05,
+      "min_small_dim_mm": 2000,
+      "min_large_dim_mm": 2500,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "position_priority": 5
+    },
+
+    "utility": {
+      "group": "service",
+      "preferred_near": ["corridor"],
+      "min_area_m2": 3.0,
+      "max_area_m2": 12.0,
+      "preferred_area_ratio": 0.04,
+      "min_small_dim_mm": 1500,
+      "min_large_dim_mm": 2000,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "position_priority": 6
+    }
+
+  }
+}

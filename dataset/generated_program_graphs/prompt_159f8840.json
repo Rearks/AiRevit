@@ -1,0 +1,179 @@
+{
+  "version": "2.0",
+  "schema_type": "program_graph",
+  "graph_id": "159f8840",
+  "source": {
+    "source_type": "text_prompt",
+    "original_prompt": "Design an office: two offices, total area 100 m², one twice as large, corridor, toilet",
+    "pdf_file": null,
+    "pdf_type": null
+  },
+  "metadata": {
+    "building_type": "office",
+    "floor_number": 1,
+    "annotator": "prompt_parser_v1",
+    "annotation_date": "2026-04-10",
+    "quality": "generated",
+    "notes": "Auto-generated from prompt. Area found: True."
+  },
+  "spaces": [
+    {
+      "id": "entrance_1",
+      "kind": "entrance",
+      "name": "Entrance",
+      "name_normalized": "entrance",
+      "area_m2": null,
+      "area_source": "to_be_generated",
+      "is_required": true,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "accessibility_priority": 1.0,
+      "confidence": 1.0
+    },
+    {
+      "id": "corridor_1",
+      "kind": "corridor",
+      "name": "Corridor",
+      "name_normalized": "corridor",
+      "area_m2": null,
+      "area_source": "to_be_generated",
+      "is_required": true,
+      "requires_daylight": false,
+      "is_wet_zone": false,
+      "accessibility_priority": 1.0,
+      "confidence": 1.0
+    },
+    {
+      "id": "office_1",
+      "kind": "office",
+      "name": "Office 1",
+      "name_normalized": "office",
+      "area_m2": null,
+      "area_source": "to_be_generated",
+      "is_required": true,
+      "requires_daylight": true,
+      "is_wet_zone": false,
+      "accessibility_priority": 0.8,
+      "confidence": 1.0
+    },
+    {
+      "id": "office_2",
+      "kind": "office",
+      "name": "Office 2",
+      "name_normalized": "office",
+      "area_m2": null,
+      "area_source": "to_be_generated",
+      "is_required": true,
+      "requires_daylight": true,
+      "is_wet_zone": false,
+      "accessibility_priority": 0.8,
+      "confidence": 1.0
+    },
+    {
+      "id": "wc_1",
+      "kind": "wc",
+      "name": "WC",
+      "name_normalized": "wc",
+      "area_m2": null,
+      "area_source": "to_be_generated",
+      "is_required": true,
+      "requires_daylight": false,
+      "is_wet_zone": true,
+      "accessibility_priority": 0.6,
+      "confidence": 1.0
+    }
+  ],
+  "connections": [
+    {
+      "id": "c1",
+      "source": "entrance_1",
+      "target": "corridor_1",
+      "connection_type": "direct_access",
+      "is_required": true,
+      "door_required": false,
+      "weight": 1.0
+    },
+    {
+      "id": "c2",
+      "source": "corridor_1",
+      "target": "office_1",
+      "connection_type": "connected_by_door",
+      "is_required": true,
+      "door_required": true,
+      "weight": 0.8
+    },
+    {
+      "id": "c3",
+      "source": "corridor_1",
+      "target": "office_2",
+      "connection_type": "connected_by_door",
+      "is_required": true,
+      "door_required": true,
+      "weight": 0.8
+    },
+    {
+      "id": "c4",
+      "source": "corridor_1",
+      "target": "wc_1",
+      "connection_type": "connected_by_door",
+      "is_required": true,
+      "door_required": true,
+      "weight": 0.6
+    }
+  ],
+  "constraints": [
+    {
+      "id": "k1",
+      "type": "total_area",
+      "value": 100.0,
+      "unit": "m2"
+    },
+    {
+      "id": "k2",
+      "type": "area_ratio",
+      "space_a": "office_1",
+      "space_b": "office_2",
+      "value": 2.0
+    }
+  ],
+  "flows": [
+    {
+      "id": "f1",
+      "name": "entry_to_office_1",
+      "path": [
+        "entrance_1",
+        "corridor_1",
+        "office_1"
+      ],
+      "weight": 1.0,
+      "frequency": "high"
+    },
+    {
+      "id": "f2",
+      "name": "entry_to_office_2",
+      "path": [
+        "entrance_1",
+        "corridor_1",
+        "office_2"
+      ],
+      "weight": 1.0,
+      "frequency": "high"
+    },
+    {
+      "id": "f3",
+      "name": "office_to_wc",
+      "path": [
+        "office_1",
+        "corridor_1",
+        "wc_1"
+      ],
+      "weight": 0.5,
+      "frequency": "medium"
+    }
+  ],
+  "derived": {
+    "topology_pattern": "office",
+    "space_count": 5,
+    "required_space_count": 5
+  }
+}
